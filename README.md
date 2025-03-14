@@ -26,11 +26,15 @@
 - Pip (Python package manager)
 
 ### Các bước cài đặt
-
+### Cách 1: Cài đặt nhanh bằng install.bat
+      ```# Chỉ cần chạy file install.bat
+       .\install.bat
+      ```
+### Cách 2: Cài đặt bình thường
 1. **Clone repository từ GitHub**
    ```bash
    git clone https://github.com/DaoTienSang/ptud-gk-de-2.git
-   
+
    ```
 
 2. **Tạo môi trường ảo (Virtual Environment)**
