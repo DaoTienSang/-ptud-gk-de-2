@@ -5,6 +5,7 @@ from werkzeug.utils import secure_filename
 from datetime import datetime
 import os
 import uuid
+import pytz  # Thư viện pytz để xử lý múi giờ
 
 # Khởi tạo ứng dụng Flask
 app = Flask(__name__)
@@ -19,6 +20,9 @@ if not os.path.exists(app.config['UPLOAD_FOLDER']):
 
 # Khởi tạo cơ sở dữ liệu
 db = SQLAlchemy(app)
+
+# Đặt múi giờ Việt Nam (UTC+7)
+vietnam_tz = pytz.timezone('Asia/Ho_Chi_Minh')
 
 # Các mô hình (Models)
 class User(db.Model):
@@ -40,7 +44,7 @@ class Task(db.Model):
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=True)
     status = db.Column(db.String(20), default='Chưa hoàn thành')
-    created = db.Column(db.DateTime, default=datetime.utcnow)
+    created = db.Column(db.DateTime, default=lambda: datetime.now(vietnam_tz))  # Lưu thời gian theo múi giờ Việt Nam
     finished = db.Column(db.DateTime, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=True)
@@ -238,7 +242,7 @@ def complete_task(task_id):
         return redirect(url_for('dashboard'))
     
     task.status = 'Hoàn thành'
-    task.finished = datetime.utcnow()
+    task.finished = datetime.now(vietnam_tz)  # Lưu thời gian hoàn thành theo múi giờ Việt Nam
     db.session.commit()
     
     flash('Công việc đã được đánh dấu là hoàn thành!', 'success')
@@ -376,7 +380,7 @@ def init_db():
                     status='Hoàn thành',
                     user_id=test_user.id,
                     category_id=2,
-                    finished=datetime.utcnow()
+                    finished=datetime.now(vietnam_tz)  # Lưu thời gian hoàn thành theo múi giờ Việt Nam
                 ),
                 Task(
                     title='Học lập trình Flask',

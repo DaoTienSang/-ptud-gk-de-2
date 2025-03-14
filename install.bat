@@ -22,6 +22,10 @@ python -m pip install flask-sqlalchemy==3.1.1
 echo Cai dat Werkzeug==2.3.7...
 python -m pip install werkzeug==2.3.7
 
+:: Cai dat pytz
+echo Cai dat pytz...
+python -m pip install pytz
+
 echo -------------------------------------
 echo Cai dat hoan tat!
 python app.py
