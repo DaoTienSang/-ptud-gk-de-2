@@ -40,7 +40,7 @@
 ### Cách 2: Cài đặt bình thường
 1. **Clone repository từ GitHub**
    ```bash
-   git clone https://github.com/DaoTienSang/ptud-gk-de-2.git
+   git clone https://github.com/DaoTienSang/-ptud-gk-de-2.git
 
    cd -ptud-gk-de-2
 
