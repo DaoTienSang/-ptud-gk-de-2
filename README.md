@@ -54,8 +54,7 @@
 3. **Kích hoạt môi trường ảo**
    - Windows:
      ```bash
-     
-     
+     venv\Scripts\activate
      ```
    - macOS/Linux:
      ```bash
