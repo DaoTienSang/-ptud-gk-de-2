@@ -31,7 +31,7 @@
    ```bash
    git clone https://github.com/DaoTienSang/-ptud-gk-de-2.git
 
-   cd -ptud-gk-de-2
+   cd .\-ptud-gk-de-2\
    ```
 2.   **Sau đó:**
    ```# Chỉ cần chạy file install.bat
@@ -42,7 +42,7 @@
    ```bash
    git clone https://github.com/DaoTienSang/-ptud-gk-de-2.git
 
-   cd -ptud-gk-de-2
+   cd .\-ptud-gk-de-2\
 
    ```
 
