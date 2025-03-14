@@ -1,3 +1,37 @@
+import sys
+import subprocess
+import pkg_resources
+
+# Danh sách các thư viện cần thiết
+REQUIRED_PACKAGES = {
+    "flask": "flask==2.3.3",
+    "flask-sqlalchemy": "flask-sqlalchemy==3.1.1",
+    "werkzeug": "werkzeug==2.3.7",
+    "pytz": "pytz"
+}
+
+# Hàm kiểm tra và cài đặt thư viện nếu thiếu
+def install_missing_packages():
+    for package_name, package_spec in REQUIRED_PACKAGES.items():
+        try:
+            pkg_resources.require(package_name)
+        except pkg_resources.DistributionNotFound:
+            print(f"Thư viện '{package_name}' chưa được cài đặt. Đang cài đặt tự động...")
+            try:
+                subprocess.check_call([sys.executable, "-m", "pip", "install", package_spec])
+                print(f"Cài đặt {package_name} thành công!")
+            except subprocess.CalledProcessError as e:
+                print(f"Lỗi khi cài đặt {package_name}: {e}")
+                print("Vui lòng kiểm tra kết nối mạng hoặc quyền truy cập pip.")
+                sys.exit(1)
+            except Exception as e:
+                print(f"Lỗi không xác định khi cài đặt {package_name}: {e}")
+                sys.exit(1)
+
+# Gọi hàm kiểm tra và cài đặt trước khi import các thư viện khác
+install_missing_packages()
+
+# Sau khi cài đặt, import các thư viện
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -23,6 +57,11 @@ db = SQLAlchemy(app)
 
 # Đặt múi giờ Việt Nam (UTC+7)
 vietnam_tz = pytz.timezone('Asia/Ho_Chi_Minh')
+
+# Thêm filter timestamp
+@app.template_filter('timestamp')
+def timestamp_filter(value):
+    return int(datetime.now(vietnam_tz).timestamp())
 
 # Các mô hình (Models)
 class User(db.Model):
