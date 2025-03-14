@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8 text-center">
+        <h1 class="display-4 mb-4">Chào mừng đến với Ứng dụng Quản lý Công việc</h1>
+        <p class="lead mb-5">Hệ thống quản lý công việc hiệu quả giúp bạn theo dõi và hoàn thành công việc một cách dễ dàng.</p>
+        <div class="d-flex justify-content-center gap-3">
+            <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg">
+                <i class="fas fa-sign-in-alt me-2"></i>Đăng nhập
+            </a>
+            <a href="{{ url_for('register') }}" class="btn btn-outline-secondary btn-lg">
+                <i class="fas fa-user-plus me-2"></i>Đăng ký
+            </a>
+        </div>
+    </div>
+</div>
+<div class="row mt-5">
+    <div class="col-md-4">
+        <div class="card h-100 p-4">
+            <div class="text-center mb-3">
+                <i class="fas fa-tasks fa-3x text-primary"></i>
+            </div>
+            <h3 class="text-center">Quản lý công việc</h3>
+            <p class="text-center text-muted">Tạo, theo dõi và cập nhật trạng thái công việc của bạn một cách dễ dàng</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 p-4">
+            <div class="text-center mb-3">
+                <i class="fas fa-folder-open fa-3x text-success"></i>
+            </div>
+            <h3 class="text-center">Phân loại</h3>
+            <p class="text-center text-muted">Phân loại công việc theo danh mục giúp bạn dễ dàng theo dõi và quản lý</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 p-4">
+            <div class="text-center mb-3">
+                <i class="fas fa-chart-line fa-3x text-danger"></i>
+            </div>
+            <h3 class="text-center">Theo dõi tiến độ</h3>
+            <p class="text-center text-muted">Theo dõi tiến độ hoàn thành công việc và thời gian thực hiện</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
