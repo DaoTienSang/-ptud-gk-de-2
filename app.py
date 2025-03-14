@@ -56,7 +56,8 @@ def allowed_file(filename):
 def save_avatar(file):
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
-        unique_filename = f"{uuid.uuid4().hex}_{filename}"
+        # Tạo tên file mới với timestamp để tránh cache
+        unique_filename = f"{uuid.uuid4().hex}_{int(datetime.now(vietnam_tz).timestamp())}_{filename}"
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], unique_filename)
         file.save(file_path)
         return unique_filename
@@ -109,6 +110,7 @@ def login():
             session['user_id'] = user.id
             session['username'] = user.username
             session['is_admin'] = user.is_admin
+            session['avatar'] = user.avatar  # Lưu avatar vào session
             flash('Đăng nhập thành công!', 'success')
             return redirect(url_for('dashboard'))
         else:
@@ -139,6 +141,9 @@ def dashboard():
         categories = Category.query.all()
         users = None
     
+    # Cập nhật avatar trong session nếu có thay đổi
+    session['avatar'] = user.avatar
+    
     return render_template('dashboard.html', tasks=tasks, categories=categories, users=users, user=user)
 
 @app.route('/profile', methods=['GET', 'POST'])
@@ -157,9 +162,11 @@ def profile():
             if avatar_filename:
                 user.avatar = avatar_filename
                 db.session.commit()
+                # Cập nhật avatar trong session
+                session['avatar'] = avatar_filename
                 flash('Cập nhật avatar thành công!', 'success')
-        
-        return redirect(url_for('profile'))
+                # Redirect để làm mới toàn bộ giao diện
+                return redirect(url_for('dashboard'))  # Chuyển hướng về dashboard để cập nhật ngay lập tức
     
     return render_template('profile.html', user=user)
 
