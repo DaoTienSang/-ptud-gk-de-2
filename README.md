@@ -30,6 +30,8 @@
 1. **Clone repository từ GitHub**
    ```bash
    git clone https://github.com/DaoTienSang/-ptud-gk-de-2.git
+
+   cd -ptud-gk-de-2
    ```
 2.   **Sau đó:**
    ```# Chỉ cần chạy file install.bat
@@ -41,7 +43,7 @@
    git clone https://github.com/DaoTienSang/ptud-gk-de-2.git
 
    cd -ptud-gk-de-2
-   
+
    ```
 
 2. **Tạo môi trường ảo (Virtual Environment)**
